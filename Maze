@@ -4,9 +4,9 @@ namespace Maze
 {
     class Program
     {
-        static void Main(string[] args)
+        public static void Main()
         {
-           // Start Game
+            // Start Game
             Console.WriteLine(" __   __  ___   __    _  _______  _______  _______  __   __  ______    __   _______    ___      _______  _______  __   __  ______    ___   __    _  _______  __   __ ");
             Console.WriteLine("|  |_|  ||   | |  |  | ||       ||       ||   _   ||  | |  ||    _ |  |  | |       |  |   |    |   _   ||  _    ||  | |  ||    _ |  |   | |  |  | ||       ||  | |  |");
             Console.WriteLine("|       ||   | |   |_| ||   _   ||_     _||  |_|  ||  | |  ||   | ||  |__| |  _____|  |   |    |  |_|  || |_|   ||  |_|  ||   | ||  |   | |   |_| ||_     _||  |_|  |");
@@ -18,14 +18,39 @@ namespace Maze
             Console.ReadKey();
             Console.Clear();
             //Slime Battle
-            int slimeHP = 1;
+            int playerHealth = 100;
             Console.WriteLine("You have been sent on a mission to slay the infamous minotaur. As you enter the first chamber within the crypt, the enterance shuts behind you, locking you in. The faint glow from the torches infront of you softly illuminate a menacing figure 10 feet from you. The large green ooze notices you and starts to move towards you.");
             Console.WriteLine("Type 'attack' to attack");
-            string temp = Console.ReadLine();
-
+            string tempAttack = Console.ReadLine();
+            for (; tempAttack != "attack";)
+            {
+                tempAttack = Console.ReadLine();
+                if (tempAttack == "attack")
+                {
+                    
+                }
+                else
+                {
+                   Console.WriteLine("Invalid Selection");
+                }
+            }         
+            Console.Clear();
             Random rnd = new Random();
-            int tempAttack = rnd.Next(1, 10);
-            
+            int tempDamage = rnd.Next(1, 10);
+            Console.WriteLine($"You have attacked for {tempDamage} damage!");
+            Console.WriteLine("Press a key to continue");
+            Console.ReadKey();
+            Console.Clear();
+            //First Room Choice
+            Console.WriteLine("You slice the slime up into bits, looking around the you notice 3 large wooden doors, one to your 'north', 'east' and 'west'. Please select a door.");
+            string firstRoomChoice = Console.ReadLine();
+            for (; ;)
+            {
+               if (firstRoomChoice=="north")
+                {
+                    //Choice: North
+                }
+            }
         }
     }
 }
