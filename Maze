@@ -17,40 +17,366 @@ namespace Maze
             Console.WriteLine("Press any key to start");
             Console.ReadKey();
             Console.Clear();
+            //Rooms
+            bool inRoomThree = false;
+            bool inRoomFour = false;
+            bool inRoomFive = false;
+            bool inRoomSeven = false;
+            string firstRoomChoice = "";
+            //Monsters
+            Random rnd = new Random();
+            int tempMonsterDamage;
+            int playerHealth = 50;
+            int zombieHealth = 15;
+            int skeletonHealth = 10;
+            int vampireHealth = 10;
+            int minotaurHealth = 20;
+            //Items
+            bool bomb = false;
+            bool potion = false;
+            bool sword = false;
             //Slime Battle
-            int playerHealth = 100;
             Console.WriteLine("You have been sent on a mission to slay the infamous minotaur. As you enter the first chamber within the crypt, the enterance shuts behind you, locking you in. The faint glow from the torches infront of you softly illuminate a menacing figure 10 feet from you. The large green ooze notices you and starts to move towards you.");
+            FirstRoomAttack:
             Console.WriteLine("Type 'attack' to attack");
             string tempAttack = Console.ReadLine();
-            for (; tempAttack != "attack";)
+            if (tempAttack != "attack")
             {
-                tempAttack = Console.ReadLine();
-                if (tempAttack == "attack")
+                Console.Clear();
+                goto FirstRoomAttack;
+            }
+            //Attack Command
+            Attack:
+            Console.Clear();
+            int tempDamage = rnd.Next(1, 10);
+            if (sword == true)
+            {
+                tempDamage = tempDamage * 2;
+            }
+            if (inRoomFour == true)
+            {
+                goto Room4Damage;
+            }
+            if (inRoomThree == true)
+            {
+                goto Room3Damage;
+            }
+            if (inRoomFive==true)
+            {
+                goto Room5Damage;
+            }
+            if (inRoomSeven==true)
+            {
+                goto Room7Damage;
+            }
+            //DamageCommand
+            Console.WriteLine($"You have attacked for {tempDamage} damage!");
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
+            Console.Clear();
+            //First Room (Room2) Choice
+            Console.WriteLine("You slice the slime up into bits, looking around the room, you notice 3 large wooden doors, one to your 'north', 'east' and 'west'. Please select a door.");
+            FirstRoom:
+                firstRoomChoice = Console.ReadLine();
+                if (firstRoomChoice == "north")
                 {
-                    
+                    //Choice: North
+                    Console.Clear();
+                    goto Room4;
+                }
+                else if (firstRoomChoice == "east")
+                {
+                    //Choice: East
+                    Console.Clear();
+                    goto Room1;
+                }
+                else if (firstRoomChoice == "west")
+                {
+                    //Choice: West
+                    Console.Clear();
+                    goto Room3;
                 }
                 else
                 {
-                   Console.WriteLine("Invalid Selection");
+                    Console.Clear();
+                    Console.WriteLine("Invalid Option");
+                    goto FirstRoom;
                 }
-            }         
+        //Room4
+        Room4:
             Console.Clear();
-            Random rnd = new Random();
-            int tempDamage = rnd.Next(1, 10);
+            inRoomFour = true;
+            Console.WriteLine("As you head north, you enter another chamber and a zombie appears infront of you.");
+        //Room4Attack
+        Room4Attack:
+            Console.WriteLine("Type 'attack' to attack");
+            tempAttack = Console.ReadLine();
+            if (tempAttack != "attack")
+            {
+                Console.Clear();
+                goto Room4Attack;
+            }
+            goto Attack;
+        //Room 4 Damage Command
+        Room4Damage:
+            zombieHealth = zombieHealth - tempDamage;
             Console.WriteLine($"You have attacked for {tempDamage} damage!");
-            Console.WriteLine("Press a key to continue");
+            Console.WriteLine($"The zombie has {zombieHealth} hp");
+            Console.WriteLine("Press any key to continue");
             Console.ReadKey();
             Console.Clear();
-            //First Room Choice
-            Console.WriteLine("You slice the slime up into bits, looking around the you notice 3 large wooden doors, one to your 'north', 'east' and 'west'. Please select a door.");
-            string firstRoomChoice = Console.ReadLine();
-            for (; ;)
+            if (zombieHealth >= 1)
             {
-               if (firstRoomChoice=="north")
-                {
-                    //Choice: North
-                }
+                Console.Clear();
+                tempMonsterDamage = rnd.Next(1, 10);
+                playerHealth = playerHealth - (tempMonsterDamage*2);
+                Console.WriteLine($"The zombie bit you for {tempMonsterDamage * 2}");
+                Console.WriteLine($"You have {playerHealth} hp left.");
+                goto Room4Attack;
             }
+        //Room 4 Choice
+        Room4Choice:
+            Console.WriteLine("After slaying the zombie, you can head in one of three doors; 'northwest', 'north' or 'northeast'. Please make a selection");
+            string room4Choice = Console.ReadLine();
+            if (room4Choice == "northwest")
+            {
+                //Choice: Northwest
+                inRoomFour = false;
+                Console.Clear();
+                goto Room6;
+            }
+            else if (room4Choice == "north")
+            {
+                //Choice: East
+                inRoomFour = false;
+                Console.Clear();
+                goto Room7;
+            }
+            else if (room4Choice == "northeast")
+            {
+                //Choice: West
+                inRoomFour = false;
+                Console.Clear();
+                goto Room5;
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Invalid Option");
+                goto Room4Choice;
+            }
+        //Room 1
+        Room1:
+            Console.Clear();
+            Console.WriteLine("As you enter the room you find a large chest in the middle of the room. Within the chest, you find a handheld bomb. ~to use bomb in combat type 'bomb'~)");
+            bomb = true;
+            Console.WriteLine("");
+            Console.WriteLine("There are 2 exits within the room, 'northwest', or 'north'");
+            //Room 1 Choice
+            Room1Choice:
+            Console.WriteLine("Please make a selection.");
+            string room1Choice = Console.ReadLine();
+            if (room1Choice == "northwest")
+            {
+                //Choice: Northwest
+                Console.Clear();
+                goto Room4;
+            }
+            else if (firstRoomChoice == "north")
+            {
+                //Choice: North
+                Console.Clear();
+                goto Room5;
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Invalid Option");
+                goto Room1Choice;
+            }
+        //Room 3
+        Room3:
+            inRoomThree = true;
+            Console.Clear();
+            Console.WriteLine("As you enter the next room, you hear the clicking of bones. As you look straight ahead you see a skeleton turn towards you.");
+        Room3Attack:
+            Console.WriteLine("Type 'attack' to attack");
+            tempAttack = Console.ReadLine();
+            if (tempAttack != "attack")
+            {
+                Console.Clear();
+                goto Room3Attack;
+            }
+            goto Attack;
+        Room3Damage:
+            skeletonHealth = skeletonHealth - tempDamage;
+            Console.WriteLine($"You have attacked for {tempDamage} damage!");
+            Console.WriteLine($"The skeleton has {skeletonHealth} hp");
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
+            Console.Clear();
+            if (skeletonHealth >= 1)
+            {
+                Console.Clear();
+                tempMonsterDamage = rnd.Next(1, 10);
+                playerHealth = playerHealth - tempMonsterDamage;
+                Console.WriteLine($"The skeleton bit you for {tempMonsterDamage}");
+                Console.WriteLine($"You have {playerHealth} hp left.");
+                goto Room3Attack;
+            }
+            Console.WriteLine("After slaying the skeleton, you take one if its daggers. ~attacks deal double damage now~ You can now head in one of two directions;'north' or 'northeast'. Please make a selection");
+            Room3Choice:
+            string room3Choice = Console.ReadLine();
+            if (room3Choice == "north")
+            {
+                //Choice: East
+                inRoomThree = false;
+                Console.Clear();
+                goto Room6;
+            }
+            else if (room3Choice == "northeast")
+            {
+                //Choice: West
+                inRoomThree = false;
+                Console.Clear();
+                goto Room4;
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Invalid Option");
+                goto Room3Choice;
+            }
+            //Room 5
+        Room5:
+            inRoomFive = true;
+            Console.Clear();
+            Console.WriteLine("As you walk into the next room, you see a vampire sucking the blood out of a dead humanoid. He turns towards you and grins.");
+        Room5Attack:
+            Console.WriteLine("Type 'attack' to attack");
+            tempAttack = Console.ReadLine();
+            if (tempAttack != "attack")
+            {
+                Console.Clear();
+                goto Room5Attack;
+            }
+            goto Attack;
+        Room5Damage:
+            vampireHealth = vampireHealth - tempDamage;
+            Console.WriteLine($"You have attacked for {tempDamage} damage!");
+            Console.WriteLine($"The vampire has {vampireHealth} hp");
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
+            Console.Clear();
+            if (vampireHealth >= 1)
+            {
+                Console.Clear();
+                tempMonsterDamage = rnd.Next(1, 10);
+                playerHealth = playerHealth - tempMonsterDamage;
+                vampireHealth = vampireHealth + (tempMonsterDamage / 3);
+                Console.WriteLine($"The vampire bites you for {tempMonsterDamage}, and heals {tempMonsterDamage/3}");
+                Console.WriteLine($"You have {playerHealth} hp left.");
+                goto Room5Attack;
+            }
+            Console.WriteLine("There is a sole exit within the room. ~type 'north' to enter Minotaurs chamber~");
+        Room5Choice:
+            string room5Choice = Console.ReadLine();
+            if (room5Choice == "north")
+            {
+                //Choice: Northwest
+                inRoomFive = false;
+                Console.Clear();
+                goto Room7;
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Invalid Option");
+                Console.WriteLine("Please type north.");
+                goto Room5Choice;
+            }
+            //Room 6
+            Room6:
+            Console.Clear();
+            Console.WriteLine("As you enter the room you find a large chest in the middle of the room. Within the chest, you find a red glowing potion. ~to use health potion in combat type 'potion'~)");
+            potion = true;
+            Console.WriteLine("");
+            Console.WriteLine("There is a sole exit within the room. ~type 'north' to enter Minotaurs chamber~");
+        Room6Choice:
+            string room6Choice = Console.ReadLine();
+            if (room6Choice == "north")
+            {
+                //Choice: Northwest
+                Console.Clear();
+                goto Room7;
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Invalid Option");
+                Console.WriteLine("Please type north.");
+                goto Room6Choice;
+            }
+        //Room 7
+        Room7:
+            inRoomSeven = true;
+            Console.Clear();
+            Console.WriteLine("As you enter a large chamber you see the enourmas Minotaur. He looks at you and says 'Ive been waiting', and readies his fists. ~The Minotaur takes half damage from direct attacks~");
+        Room7Attack:
+            Console.WriteLine("Type 'attack' to attack");
+            tempAttack = Console.ReadLine();
+            if (tempAttack != "attack")
+            {
+                Console.Clear();
+                goto Room7Attack;
+            }
+            goto Attack;
+        Room7Damage:
+            minotaurHealth = minotaurHealth - (tempDamage/2);
+            Console.WriteLine($"You have attacked for {tempDamage/2} damage!");
+            Console.WriteLine($"The Minotaur has {minotaurHealth} hp");
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
+            Console.Clear();
+            if (minotaurHealth >= 1)
+            {
+                Console.Clear();
+                tempMonsterDamage = rnd.Next(1, 10);
+                playerHealth = playerHealth - tempMonsterDamage;
+
+                Console.WriteLine($"The minotaur cleaves you with his greataxe for {tempMonsterDamage} damage.");
+                Console.WriteLine($"You have {playerHealth} hp left.");
+                goto Room7Attack;
+            }
+         Room7Choice:
+                string room7Choice = Console.ReadLine();
+                if (room7Choice == "north")
+                {
+                //Choice: Northwest
+                Console.Clear();
+                goto Room8;
+                }
+                else
+                {
+                Console.Clear();
+                Console.WriteLine("Invalid Option");
+                Console.WriteLine("Please type north.");
+                goto Room7Choice;
+                }
+        Room8:
+            Console.Clear();
+            Console.WriteLine("As you exit the final chamber, you look up at the sunlight and think 'this is one I won't forget.'");
+            Console.WriteLine("Press any key to proceed to end scene.");
+            Console.ReadKey();
+            //End
+            Console.WriteLine(" _______  __   __  _______    _______  __    _  ______  ");
+            Console.WriteLine("|       ||  | |  ||       |  |       ||  |  | ||      | ");
+            Console.WriteLine("|_     _||  |_|  ||    ___|  |    ___||   |_| ||  _    |");
+            Console.WriteLine("  |   |  |       ||   |___   |   |___ |       || | |   |");
+            Console.WriteLine("  |   |  |       ||    ___|  |    ___||  _    || |_|   |");
+            Console.WriteLine("  |   |  |   _   ||   |___   |   |___ | | |   ||       |");
+            Console.WriteLine("  |___|  |__| |__||_______|  |_______||_|  |__||______| ");
+
         }
     }
 }
