@@ -37,7 +37,7 @@ namespace Maze
             bool sword = false;
             //Slime Battle
             Console.WriteLine("You have been sent on a mission to slay the infamous minotaur. As you enter the first chamber within the crypt, the enterance shuts behind you, locking you in. The faint glow from the torches infront of you softly illuminate a menacing figure 10 feet from you. The large green ooze notices you and starts to move towards you.");
-            FirstRoomAttack:
+        FirstRoomAttack:
             Console.WriteLine("Type 'attack' to attack");
             string tempAttack = Console.ReadLine();
             if (tempAttack != "attack")
@@ -45,8 +45,8 @@ namespace Maze
                 Console.Clear();
                 goto FirstRoomAttack;
             }
-            //Attack Command
-            Attack:
+        //Attack Command
+        Attack:
             Console.Clear();
             int tempDamage = rnd.Next(1, 10);
             if (sword == true)
@@ -61,11 +61,11 @@ namespace Maze
             {
                 goto Room3Damage;
             }
-            if (inRoomFive==true)
+            if (inRoomFive == true)
             {
                 goto Room5Damage;
             }
-            if (inRoomSeven==true)
+            if (inRoomSeven == true)
             {
                 goto Room7Damage;
             }
@@ -76,32 +76,32 @@ namespace Maze
             Console.Clear();
             //First Room (Room2) Choice
             Console.WriteLine("You slice the slime up into bits, looking around the room, you notice 3 large wooden doors, one to your 'north', 'east' and 'west'. Please select a door.");
-            FirstRoom:
-                firstRoomChoice = Console.ReadLine();
-                if (firstRoomChoice == "north")
-                {
-                    //Choice: North
-                    Console.Clear();
-                    goto Room4;
-                }
-                else if (firstRoomChoice == "east")
-                {
-                    //Choice: East
-                    Console.Clear();
-                    goto Room1;
-                }
-                else if (firstRoomChoice == "west")
-                {
-                    //Choice: West
-                    Console.Clear();
-                    goto Room3;
-                }
-                else
-                {
-                    Console.Clear();
-                    Console.WriteLine("Invalid Option");
-                    goto FirstRoom;
-                }
+        FirstRoom:
+            firstRoomChoice = Console.ReadLine();
+            if (firstRoomChoice == "north")
+            {
+                //Choice: North
+                Console.Clear();
+                goto Room4;
+            }
+            else if (firstRoomChoice == "east")
+            {
+                //Choice: East
+                Console.Clear();
+                goto Room1;
+            }
+            else if (firstRoomChoice == "west")
+            {
+                //Choice: West
+                Console.Clear();
+                goto Room3;
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Invalid Option");
+                goto FirstRoom;
+            }
         //Room4
         Room4:
             Console.Clear();
@@ -116,6 +116,18 @@ namespace Maze
                 Console.Clear();
                 goto Room4Attack;
             }
+            else if (tempAttack == "potion"&&potion==true)
+            {
+                potion = false;
+                playerHealth = playerHealth + 20;
+                Console.WriteLine("You drink your potion and heal 20 health.");
+            }
+            else if (tempAttack == "bomb"&&bomb==true)
+            {
+                bomb = false;
+                tempDamage = 20;
+                goto Room4Damage;
+            }
             goto Attack;
         //Room 4 Damage Command
         Room4Damage:
@@ -129,9 +141,13 @@ namespace Maze
             {
                 Console.Clear();
                 tempMonsterDamage = rnd.Next(1, 10);
-                playerHealth = playerHealth - (tempMonsterDamage*2);
+                playerHealth = playerHealth - (tempMonsterDamage * 2);
                 Console.WriteLine($"The zombie bit you for {tempMonsterDamage * 2}");
                 Console.WriteLine($"You have {playerHealth} hp left.");
+                if (playerHealth <= 0)
+                {
+                    goto death;
+                }
                 goto Room4Attack;
             }
         //Room 4 Choice
@@ -172,8 +188,8 @@ namespace Maze
             bomb = true;
             Console.WriteLine("");
             Console.WriteLine("There are 2 exits within the room, 'northwest', or 'north'");
-            //Room 1 Choice
-            Room1Choice:
+        //Room 1 Choice
+        Room1Choice:
             Console.WriteLine("Please make a selection.");
             string room1Choice = Console.ReadLine();
             if (room1Choice == "northwest")
@@ -182,7 +198,7 @@ namespace Maze
                 Console.Clear();
                 goto Room4;
             }
-            else if (firstRoomChoice == "north")
+            else if (room1Choice == "north")
             {
                 //Choice: North
                 Console.Clear();
@@ -207,6 +223,12 @@ namespace Maze
                 Console.Clear();
                 goto Room3Attack;
             }
+            else if (tempAttack == "potion" && potion == true)
+            {
+                potion = false;
+                playerHealth = playerHealth + 20;
+                Console.WriteLine("You drink your potion and heal 20 health.");
+            }
             goto Attack;
         Room3Damage:
             skeletonHealth = skeletonHealth - tempDamage;
@@ -222,21 +244,24 @@ namespace Maze
                 playerHealth = playerHealth - tempMonsterDamage;
                 Console.WriteLine($"The skeleton bit you for {tempMonsterDamage}");
                 Console.WriteLine($"You have {playerHealth} hp left.");
+                if (playerHealth <= 0)
+                {
+                    goto death;
+                }
                 goto Room3Attack;
             }
-            Console.WriteLine("After slaying the skeleton, you take one if its daggers. ~attacks deal double damage now~ You can now head in one of two directions;'north' or 'northeast'. Please make a selection");
-            Room3Choice:
+             Console.WriteLine("After slaying the skeleton, you take one if its daggers. ~attacks deal double damage now~ You can now head in one of two directions;'north' or 'northeast'. Please make a selection");
+            sword = true;
+        Room3Choice:
             string room3Choice = Console.ReadLine();
             if (room3Choice == "north")
             {
-                //Choice: East
                 inRoomThree = false;
                 Console.Clear();
                 goto Room6;
             }
             else if (room3Choice == "northeast")
             {
-                //Choice: West
                 inRoomThree = false;
                 Console.Clear();
                 goto Room4;
@@ -247,7 +272,7 @@ namespace Maze
                 Console.WriteLine("Invalid Option");
                 goto Room3Choice;
             }
-            //Room 5
+        //Room 5
         Room5:
             inRoomFive = true;
             Console.Clear();
@@ -259,6 +284,18 @@ namespace Maze
             {
                 Console.Clear();
                 goto Room5Attack;
+            }
+            else if (tempAttack == "potion" && potion == true)
+            {
+                potion = false;
+                playerHealth = playerHealth + 20;
+                Console.WriteLine("You drink your potion and heal 20 health.");
+            }
+            else if (tempAttack == "bomb" && bomb == true)
+            {
+                bomb = false;
+                tempDamage = 20;
+                goto Room5Damage;
             }
             goto Attack;
         Room5Damage:
@@ -274,8 +311,12 @@ namespace Maze
                 tempMonsterDamage = rnd.Next(1, 10);
                 playerHealth = playerHealth - tempMonsterDamage;
                 vampireHealth = vampireHealth + (tempMonsterDamage / 3);
-                Console.WriteLine($"The vampire bites you for {tempMonsterDamage}, and heals {tempMonsterDamage/3}");
+                Console.WriteLine($"The vampire bites you for {tempMonsterDamage}, and heals {tempMonsterDamage / 3}");
                 Console.WriteLine($"You have {playerHealth} hp left.");
+                if (playerHealth <= 0)
+                {
+                    goto death;
+                }
                 goto Room5Attack;
             }
             Console.WriteLine("There is a sole exit within the room. ~type 'north' to enter Minotaurs chamber~");
@@ -295,8 +336,8 @@ namespace Maze
                 Console.WriteLine("Please type north.");
                 goto Room5Choice;
             }
-            //Room 6
-            Room6:
+        //Room 6
+        Room6:
             Console.Clear();
             Console.WriteLine("As you enter the room you find a large chest in the middle of the room. Within the chest, you find a red glowing potion. ~to use health potion in combat type 'potion'~)");
             potion = true;
@@ -330,10 +371,22 @@ namespace Maze
                 Console.Clear();
                 goto Room7Attack;
             }
+            else if (tempAttack == "potion" && potion == true)
+            {
+                potion = false;
+                playerHealth = playerHealth + 20;
+                Console.WriteLine("You drink your potion and heal 20 health.");
+            }
+            else if (tempAttack == "bomb" && bomb == true)
+            {
+                bomb = false;
+                tempDamage = 20;
+                goto Room7Damage;
+            }
             goto Attack;
         Room7Damage:
-            minotaurHealth = minotaurHealth - (tempDamage/2);
-            Console.WriteLine($"You have attacked for {tempDamage/2} damage!");
+            minotaurHealth = minotaurHealth - (tempDamage / 2);
+            Console.WriteLine($"You have attacked for {tempDamage / 2} damage!");
             Console.WriteLine($"The Minotaur has {minotaurHealth} hp");
             Console.WriteLine("Press any key to continue");
             Console.ReadKey();
@@ -346,23 +399,36 @@ namespace Maze
 
                 Console.WriteLine($"The minotaur cleaves you with his greataxe for {tempMonsterDamage} damage.");
                 Console.WriteLine($"You have {playerHealth} hp left.");
+                if (playerHealth <= 0)
+                {
+                    goto death;
+                }
                 goto Room7Attack;
             }
-         Room7Choice:
-                string room7Choice = Console.ReadLine();
-                if (room7Choice == "north")
-                {
+        Room7Choice:
+            string room7Choice = Console.ReadLine();
+            if (room7Choice == "north")
+            {
                 //Choice: Northwest
                 Console.Clear();
                 goto Room8;
-                }
-                else
-                {
+            }
+            else
+            {
                 Console.Clear();
                 Console.WriteLine("Invalid Option");
                 Console.WriteLine("Please type north.");
                 goto Room7Choice;
-                }
+            }
+        //Did not put a capital 'd' on death and am way too lazy to fix
+        death:
+            Console.WriteLine("____    ____  ______    __    __      _______   __   _______  _______  ");
+            Console.WriteLine("\\   \\  /   / /  __  \\  |  |  |  |    |       \\ |  | |   ____||       \\ ");
+            Console.WriteLine(" \\   \\/   / |  |  |  | |  |  |  |    |  .--.  ||  | |  |__   |  .--.  |");
+            Console.WriteLine("  \\_    _/  |  |  |  | |  |  |  |    |  |  |  ||  | |   __|  |  |  |  |");
+            Console.WriteLine("    |  |    |  `--'  | |  `--'  |    |  '--'  ||  | |  |____ |  '--'  |");
+            Console.WriteLine("    |__|     \\______/   \\______/     |_______/ |__| |_______||_______/ ");
+        //Room8
         Room8:
             Console.Clear();
             Console.WriteLine("As you exit the final chamber, you look up at the sunlight and think 'this is one I won't forget.'");
