@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Threading;
+using System.Linq;
 
-namespace CompSciPostGlitchArrays
+namespace ArraysProgramCompSci
 {
     class Program
     {
@@ -60,18 +60,39 @@ namespace CompSciPostGlitchArrays
                 Console.WriteLine(studentName[index]);
             }
             int tempStudentNum = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine(studentName[tempStudentNum] + " has a grade of" + studentGrade[tempStudentNum]);
+            Console.WriteLine(studentName[tempStudentNum-1] + " has a grade of " + studentGrade[tempStudentNum-1]);
             Console.WriteLine("Press any key to continue");
             Console.ReadKey();
             Console.Clear();
             goto Start;
         optionThree:
-
+            Console.Clear();
+            Console.WriteLine("Please type number of student.");
+            for (int index = 0; index < studentName.Count; index++)
+            {
+                Console.WriteLine(studentName[index]);
+            }
+            int tempStudentNum1 = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("What is " + studentName[tempStudentNum1 - 1] + "'s new grade?");
+            int tempNewGrade = Convert.ToInt32(Console.ReadLine());
+            studentGrade[tempStudentNum1 - 1] = tempNewGrade;
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
+            Console.Clear();
+            goto Start;
         optionFour:
-
+            Console.WriteLine("The average of the class is " + (studentGrade.Sum() / (studentGrade.Count)));
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
+            Console.Clear();
+            goto Start;
         optionFive:
+            int tempStudentsCount = studentGrade.Count();
+            for (int index = 0; index < tempStudentsCount; index++)
+            {
+                Console.WriteLine(studentName[index] + '\t' + studentGrade[index]);
+            }
             ;
-
         }
     }
 }
