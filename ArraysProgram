@@ -1,29 +1,77 @@
 using System;
+using System.Collections.Generic;
+using System.Threading;
 
-namespace ArraysMay2020
+namespace CompSciPostGlitchArrays
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("How many students would you like to input?");
-            int tempStudents = Convert.ToInt32(Console.ReadLine());
-            string[] studentsNames = new string[tempStudents];
-            string[] studentsGrades = new string[tempStudents];
-            for (int i = 0; i < tempStudents; i++)
+            List<string> studentName = new List<string>();
+            List<int> studentGrade = new List<int>();
+        Start:
+            Console.WriteLine("Please select an option.");
+            Console.WriteLine("1. Enter a student.");
+            Console.WriteLine("2. Print a student grade.");
+            Console.WriteLine("3. Change a student grade.");
+            Console.WriteLine("4. Print class average.");
+            Console.WriteLine("5. Print class list.");
+            for (int option = Convert.ToInt32(Console.ReadLine()); option <= 5; option++)
             {
-                Console.WriteLine("Input name");
-                studentsNames[i] = Console.ReadLine();
-                Console.WriteLine("Input Grade");
-                studentsGrades[i] = Console.ReadLine();
+                if (option == 1)
+                {
+                    goto optionOne;
+                }
+                if (option == 2)
+                {
+                    goto optionTwo;
+                }
+                if (option == 3)
+                {
+                    goto optionThree;
+                }
+                if (option == 4)
+                {
+                    goto optionFour;
+                }
+                if (option == 5)
+                {
+                    goto optionFive;
+                }
             }
+            Console.WriteLine("Invalid Selection. Please select 1-5. Press a key to continue.");
+            Console.ReadKey();
             Console.Clear();
-            Console.WriteLine("Students");
-            //Found this last part on google to help
-            for (int index = 0; index < tempStudents; index++)
+            goto Start;
+        optionOne:
+            Console.Clear();
+            Console.WriteLine("Please input student name.");
+            studentName.Add(Console.ReadLine());
+            Console.WriteLine("Please input student grade.");
+            studentGrade.Add(Convert.ToInt32(Console.ReadLine()));
+            Console.Clear();
+            goto Start;
+        optionTwo:
+            Console.Clear();
+            Console.WriteLine("Please type number of student.");
+            for (int index = 0; index < studentName.Count; index++)
             {
-                Console.WriteLine(studentsNames[index] + '\t' + studentsGrades[index]);
+                Console.WriteLine(studentName[index]);
             }
+            int tempStudentNum = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine(studentName[tempStudentNum] + " has a grade of" + studentGrade[tempStudentNum]);
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
+            Console.Clear();
+            goto Start;
+        optionThree:
+
+        optionFour:
+
+        optionFive:
+            ;
+
         }
     }
 }
