@@ -60,7 +60,7 @@ namespace ArraysProgramCompSci
                 Console.WriteLine(studentName[index]);
             }
             int tempStudentNum = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine(studentName[tempStudentNum-1] + " has a grade of " + studentGrade[tempStudentNum-1]);
+            Console.WriteLine(studentName[tempStudentNum - 1] + " has a grade of " + studentGrade[tempStudentNum - 1]);
             Console.WriteLine("Press any key to continue");
             Console.ReadKey();
             Console.Clear();
@@ -92,6 +92,10 @@ namespace ArraysProgramCompSci
             {
                 Console.WriteLine(studentName[index] + '\t' + studentGrade[index]);
             }
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
+            Console.Clear();
+            goto Start;
             ;
         }
     }
